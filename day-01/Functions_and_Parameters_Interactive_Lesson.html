@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Function Builders: Functions and Parameters in Python</title>
+<style>
+:root{--navy:#005596;--dark:#1B2A41;--gold:#FDB515;--green:#1E8E3E;--red:#C3092B;--ink:#1d2530;--muted:#5b6675;--line:#d5dde6;--bg:#f6f8fb;--blue:#EEF5FA;--pale:#FFF5D6}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 "Segoe UI",Arial,sans-serif}
+header{position:sticky;top:0;z-index:5;background:var(--dark);color:white;padding:.65rem 1rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+header b{color:var(--gold)}nav{display:flex;gap:.35rem;flex-wrap:wrap}nav a{color:#dce8f5;text-decoration:none;border:1px solid #52647c;border-radius:20px;padding:.15rem .6rem;font-size:.82rem}
+main{max-width:1120px;margin:auto;padding:1rem 1rem 4rem}.hero{background:linear-gradient(120deg,#005596,#1B2A41);color:white;padding:1.5rem;border-radius:16px;margin-bottom:1rem}.hero h1{font-size:2rem;margin:.2rem 0}.hero p{max-width:800px}
+section,.card{background:white;border:1px solid var(--line);border-radius:13px;padding:1rem 1.2rem;margin:1rem 0;box-shadow:0 2px 8px #15253a0a}
+h2{color:var(--navy);margin:.1rem 0 .5rem}h3{margin:.7rem 0 .3rem}.tag{display:inline-block;background:var(--navy);color:white;border-radius:20px;padding:.1rem .65rem;font-size:.8rem}.gold{background:var(--gold);color:var(--dark)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}@media(max-width:800px){.grid{grid-template-columns:1fr}}
+.note{background:var(--pale);border-left:5px solid var(--gold);padding:.7rem 1rem;border-radius:8px;margin:.6rem 0}.key{background:var(--blue);border-left:5px solid var(--navy);padding:.7rem 1rem;border-radius:8px;margin:.6rem 0}
+pre,code{font-family:Consolas,monospace}pre{background:#17263b;color:#edf4fb;padding:.85rem;border-radius:9px;overflow:auto;font-size:.92rem}code{background:var(--blue);padding:.1rem .25rem;border-radius:4px}
+button{font:inherit;cursor:pointer;border:0;border-radius:7px;padding:.4rem .8rem;background:var(--navy);color:white;margin:.2rem}button.alt{background:white;color:var(--navy);border:1px solid var(--navy)}button.green{background:var(--green)}input{font:inherit;padding:.35rem .5rem;border:1px solid #9aabba;border-radius:6px;max-width:100%}
+.output{background:#101d2e;color:#e9f0f8;padding:.7rem;border-radius:8px;white-space:pre-wrap;min-height:2.5rem;font-family:Consolas,monospace}
+.feedback{font-weight:700;margin-left:.4rem}.good{color:var(--green)}.bad{color:var(--red)}
+table{border-collapse:collapse;width:100%;margin:.5rem 0}td,th{border:1px solid var(--line);padding:.45rem;text-align:left}th{background:var(--navy);color:white}
+.task{border:2px solid var(--green)}.challenge{border:2px dashed var(--red)}
+.small{color:var(--muted);font-size:.9rem}.presenter{background:#f3eeff;border-left:5px solid #7046b8;padding:.6rem 1rem;border-radius:8px;margin:.6rem 0}
+.reveal{display:none;background:#e6f4ea;padding:.7rem 1rem;border-radius:8px;margin:.5rem 0}.reveal.show{display:block}
+footer{text-align:center;color:var(--muted);padding:1rem}
+</style>
+</head>
+<body>
+<header><strong>PYTHON TRAINING <b>·</b> FUNCTIONS & PARAMETERS</strong><nav><a href="#hook">Start</a><a href="#concepts">Concepts</a><a href="#trace">Trace</a><a href="#practice">Practice</a><a href="#thonny">Thonny task</a><a href="#quiz">Quiz</a></nav></header>
+<main>
+<div class="hero">
+<span class="tag gold">Interactive lesson</span>
+<h1>🧰 Function Builders: Functions and Parameters</h1>
+<p>Learn how to create reusable blocks of Python code, pass information into functions using parameters and arguments, and return results to the main program.</p>
+<p><b>Learning outcomes:</b> define and call a function; use parameters and arguments; return a value; use functions to divide a problem into smaller tasks.</p>
+</div>
+
+<section id="hook">
+<span class="tag">Part 1 · Hook</span><h2>🏪 The tuck-shop calculator</h2>
+<p>A tuck shop sells an item. Each time the cashier needs the total price, the same calculation is performed. Instead of writing the calculation repeatedly, we can create a function and reuse it.</p>
+<div class="grid">
+<div class="card">
+<h3>Without a function</h3>
+<pre>price1 = 12
+qty1 = 3
+total1 = price1 * qty1
+print(total1)
+
+price2 = 8
+qty2 = 4
+total2 = price2 * qty2
+print(total2)</pre>
+<p class="small">The calculation is repeated in different places.</p>
+</div>
+<div class="card">
+<h3>With a function</h3>
+<pre>def calculate_total(price, quantity):
+    total = price * quantity
+    return total
+
+print(calculate_total(12, 3))
+print(calculate_total(8, 4))</pre>
+<p class="small">Write the calculation once and call it whenever it is needed.</p>
+</div>
+</div>
+<div class="note"><b>Think about it:</b> Which version would be easier to update if the calculation changed?</div>
+<div class="presenter"><b>Presenter prompt:</b> Ask learners to identify the repeated instructions. Explain that a function is a named, reusable block of code.</div>
+</section>
+
+<section id="concepts">
+<span class="tag">Part 2 · Understand</span><h2>🧠 What is a function?</h2>
+<p>A <b>function</b> is a named block of code designed to perform a particular task. It runs when it is called. Functions help make programs organised, reusable and easier to test.</p>
+<div class="key"><b>Basic structure</b>
+<pre>def function_name(parameters):
+    # instructions
+    return result</pre>
+<ul><li><code>def</code> tells Python that a function is being defined.</li><li><code>function_name</code> is the name used to call the function.</li><li><code>parameters</code> are variable names that receive information.</li><li>The indented lines form the function body.</li><li><code>return</code> sends a result back to the place where the function was called.</li></ul></div>
+<div class="grid">
+<div class="card"><h3>1. Define a function</h3><pre>def greet():
+    print("Welcome to Python")</pre><p>This creates the function. It does not run yet.</p></div>
+<div class="card"><h3>2. Call a function</h3><pre>greet()</pre><p>This tells Python to execute the function.</p></div>
+</div>
+<h3>Try it: predict the output</h3>
+<pre>def greet():
+    print("Welcome!")
+
+print("Start")
+greet()
+print("Finish")</pre>
+<button onclick="show('hookAnswer')">Show the output</button><div id="hookAnswer" class="reveal"><pre>Start
+Welcome!
+Finish</pre>The function runs only when Python reaches <code>greet()</code>.</div>
+
+<h2>📦 Parameters and arguments</h2>
+<p>A <b>parameter</b> is a variable listed inside the function definition. An <b>argument</b> is the actual value supplied when the function is called.</p>
+<pre>def greet_student(name):  # name is a parameter
+    print("Hello", name)
+
+greet_student("Lerato")  # "Lerato" is an argument</pre>
+<table><tr><th>Term</th><th>Meaning</th><th>Example</th></tr><tr><td>Parameter</td><td>Variable in the function definition</td><td><code>name</code></td></tr><tr><td>Argument</td><td>Value passed into the function call</td><td><code>"Lerato"</code></td></tr></table>
+<div class="note"><b>Remember:</b> Parameters are placeholders. Arguments are the values that fill those placeholders.</div>
+
+<h2>↩️ Return versus print</h2>
+<div class="grid">
+<div class="card"><h3><code>print()</code></h3><pre>def add(a, b):
+    print(a + b)
+
+add(4, 6)</pre><p>Displays the answer on the screen. It does not send the answer back for further calculation.</p></div>
+<div class="card"><h3><code>return</code></h3><pre>def add(a, b):
+    return a + b
+
+answer = add(4, 6)
+print(answer)</pre><p>Sends the answer back so the program can store it, display it or use it in another calculation.</p></div>
+</div>
+</section>
+
+<section id="trace">
+<span class="tag">Part 3 · Follow the values</span><h2>🔍 Trace a function call</h2>
+<p>Study this program. Follow the arguments into the function, then follow the returned value back to the main program.</p>
+<pre>def calculate_area(length, width):
+    area = length * width
+    return area
+
+room_area = calculate_area(5, 3)
+print("Room area:", room_area, "square metres")</pre>
+<table><tr><th>Step</th><th>What happens?</th><th>Value</th></tr>
+<tr><td>1</td><td>Python reaches the function call</td><td><code>calculate_area(5, 3)</code></td></tr>
+<tr><td>2</td><td>Arguments are assigned to parameters</td><td><code>length = 5</code>, <code>width = 3</code></td></tr>
+<tr><td>3</td><td>Function calculates the area</td><td><code>area = 5 * 3 = 15</code></td></tr>
+<tr><td>4</td><td>Function returns the result</td><td><code>15</code></td></tr>
+<tr><td>5</td><td>Main program stores and displays it</td><td><code>room_area = 15</code></td></tr></table>
+<div class="output">Room area: 15 square metres</div>
+<div class="presenter"><b>Ask learners:</b> What would happen if the function call used <code>calculate_area(8, 4)</code>? Which values would change?</div>
+</section>
+
+<section id="practice">
+<span class="tag">Part 4 · Interactive practice</span><h2>💻 Function workshop</h2>
+<div class="card">
+<h3>Activity A: calculate the total cost</h3>
+<p>Enter a price and quantity. The function receives both values and returns the total.</p>
+<label>Price (R): <input id="price" type="number" value="15" min="0"></label>
+<label>Quantity: <input id="qty" type="number" value="4" min="0"></label>
+<button class="green" onclick="calcTotal()">Call the function</button>
+<div id="totalOut" class="output">Result will appear here.</div>
+</div>
+<div class="card">
+<h3>Activity B: identify parameter and argument</h3>
+<pre>def welcome(name):
+    print("Welcome", name)
+
+welcome("Thabo")</pre>
+<p>Which word is the parameter?</p><button onclick="checkChoice('param','name')">name</button><button class="alt" onclick="checkChoice('param','Thabo')">Thabo</button><span id="paramFb" class="feedback"></span>
+<p>Which value is the argument?</p><button onclick="checkChoice('arg','name')">name</button><button class="alt" onclick="checkChoice('arg','Thabo')">Thabo</button><span id="argFb" class="feedback"></span>
+</div>
+<div class="card challenge">
+<h3>Activity C: complete the function</h3>
+<p>Choose the missing keyword that sends a calculated answer back to the main program.</p>
+<button onclick="checkReturn('print')">print</button><button onclick="checkReturn('return')">return</button><button onclick="checkReturn('input')">input</button><span id="returnFb" class="feedback"></span>
+</div>
+</section>
+
+<section id="thonny">
+<span class="tag">Part 5 · Thonny practical</span><h2>🛠 Build a student marks calculator</h2>
+<p><b>Scenario:</b> A lecturer wants a program that calculates a student's average mark using two assessment marks. You must use a function with parameters and return the calculated average.</p>
+<div class="task">
+<h3>Instructions</h3>
+<ol><li>Open Thonny and create a new Python file.</li><li>Define a function called <code>calculate_average</code> with two parameters: <code>mark1</code> and <code>mark2</code>.</li><li>Calculate the average using <code>(mark1 + mark2) / 2</code>.</li><li>Return the average from the function.</li><li>In the main program, ask the user to enter two marks and convert them to numbers using <code>float()</code>.</li><li>Call the function, store the returned result in a variable and display it to two decimal places.</li></ol>
+<h3>Starter code</h3>
+<pre>def calculate_average(mark1, mark2):
+    # Calculate the average
+    # Return the answer
+    pass
+
+# Main program
+first_mark = float(input("Enter first mark: "))
+second_mark = float(input("Enter second mark: "))
+
+average = calculate_average(first_mark, second_mark)
+print("Average mark:", format(average, ".2f"))</pre>
+<button class="alt" onclick="show('solution')">Reveal model solution</button>
+<div class="reveal" id="solution"><pre>def calculate_average(mark1, mark2):
+    average = (mark1 + mark2) / 2
+    return average
+
+first_mark = float(input("Enter first mark: "))
+second_mark = float(input("Enter second mark: "))
+
+average = calculate_average(first_mark, second_mark)
+print("Average mark:", format(average, ".2f"))</pre></div>
+</div>
+<h3>Test your program</h3>
+<table><tr><th>Test</th><th>First mark</th><th>Second mark</th><th>Expected average</th></tr><tr><td>1</td><td>60</td><td>80</td><td>70.00</td></tr><tr><td>2</td><td>45</td><td>55</td><td>50.00</td></tr><tr><td>3</td><td>72.5</td><td>81.5</td><td>77.00</td></tr></table>
+<div class="note"><b>Extension:</b> Add a third parameter for a project mark. Update the function so it calculates the average of three marks.</div>
+</section>
+
+<section id="quiz">
+<span class="tag">Part 6 · Check your understanding</span><h2>🎓 Exit quiz</h2>
+<div class="card"><p><b>1.</b> Which keyword is used to define a function?</p><button onclick="quiz(this,false)">call</button><button onclick="quiz(this,true)">def</button><button onclick="quiz(this,false)">function</button><span class="feedback"></span></div>
+<div class="card"><p><b>2.</b> In <code>def multiply(x, y):</code>, what are <code>x</code> and <code>y</code>?</p><button onclick="quiz(this,true)">Parameters</button><button onclick="quiz(this,false)">Arguments</button><button onclick="quiz(this,false)">Outputs</button><span class="feedback"></span></div>
+<div class="card"><p><b>3.</b> In <code>multiply(3, 4)</code>, what are 3 and 4?</p><button onclick="quiz(this,false)">Parameters</button><button onclick="quiz(this,true)">Arguments</button><button onclick="quiz(this,false)">Function names</button><span class="feedback"></span></div>
+<div class="card"><p><b>4.</b> What does <code>return</code> do?</p><button onclick="quiz(this,false)">Repeats the function</button><button onclick="quiz(this,false)">Only prints text</button><button onclick="quiz(this,true)">Sends a result back to the caller</button><span class="feedback"></span></div>
+<div class="card"><p><b>5.</b> When does a defined function execute?</p><button onclick="quiz(this,true)">When it is called</button><button onclick="quiz(this,false)">As soon as the file is saved</button><button onclick="quiz(this,false)">Only when Python starts</button><span class="feedback"></span></div>
+<button class="green" onclick="scoreQuiz()">Check my score</button><span id="score" class="feedback"></span>
+</section>
+<footer>Python Training · Functions and Parameters · Use the activities, then practise the code in Thonny.</footer>
+</main>
+<script>
+function show(id){document.getElementById(id).classList.toggle('show')}
+function calcTotal(){let p=Number(document.getElementById('price').value),q=Number(document.getElementById('qty').value);let out=document.getElementById('totalOut');if(p<0||q<0||!Number.isFinite(p)||!Number.isFinite(q)){out.textContent='Enter valid non-negative numbers.';return}function calculate_total(price,quantity){return price*quantity}out.textContent='calculate_total('+p+', '+q+') returned R '+(calculate_total(p,q)).toFixed(2)}
+function checkChoice(which,value){let ok=(which==='param'&&value==='name')||(which==='arg'&&value==='Thabo');let el=document.getElementById(which+'Fb');el.textContent=ok?'Correct!':'Try again.';el.className='feedback '+(ok?'good':'bad')}
+function checkReturn(v){let el=document.getElementById('returnFb');el.textContent=v==='return'?'Correct! return sends the value back.':'Not quite. Think about sending a value back.';el.className='feedback '+(v==='return'?'good':'bad')}
+function quiz(btn,correct){let card=btn.closest('.card');card.dataset.correct=correct?'1':'0';card.querySelectorAll('button').forEach(b=>b.disabled=true);let fb=card.querySelector('.feedback');fb.textContent=correct?'Correct':'Review this answer';fb.className='feedback '+(correct?'good':'bad')}
+function scoreQuiz(){let cards=[...document.querySelectorAll('#quiz .card')],answered=cards.filter(c=>c.dataset.correct!==undefined).length,score=cards.filter(c=>c.dataset.correct==='1').length;document.getElementById('score').textContent=' Score: '+score+'/5 ('+answered+' answered)';}
+</script>
+</body></html>
